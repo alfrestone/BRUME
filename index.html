@@ -4,24 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Document</title>
 </head>
 
 <body>
     <header>
-        <p>Du grain à votre tasse. Un café qui vous ressemble.</p>
+        <p class="bg-[#394B32] flex justify-center align-center text-white p-2 font-light font-dm-sans">Du grain à votre tasse. Un café qui vous ressemble.</p>
 
-        <div>
-            <span>BRUME</span>
+        <div class="flex justify-around content-center">
+            <span class="flex justify-start items-center">
+                <img width="30" height="30" src="https://img.icons8.com/ios/50/cafe.png" alt="cafe"/>
+                <span class="text-[#30291F] font-meduim text-4xl font-playfair m-2">BRUME</span>
+            </span>
 
             <nav>
-                <ul>
-                    <li><a href="#">L'atelier café</a></li>
-                    <li><a href="#">Notre savoir-faire</a></li>
-                    <li><a href="#">Besoin d'aide ?</a></li>
+                <ul class="flex justify-around content-center">
+                    <li class="m-4"><a href="#" class="font-semibold text-[#394B32]">L'atelier café</a></li>
+                    <li class="m-4"><a href="#">Notre savoir-faire</a></li>
+                    <li class="m-4"><a href="#">Besoin d'aide ?</a></li>
                 </ul>
-                <img width="50" height="50" src="https://img.icons8.com/ios/50/shopping-bag--v3.png" alt="shopping-bag--v3"/>
             </nav>
         </div>
     </header>
