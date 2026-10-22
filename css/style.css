@@ -3,7 +3,3 @@
 body {
     background-color: #FAF7F0;
 }
-@theme {
-  --font-dm-sans: "DM Sans", sans-serif;
-  --font-playfair:"Playfair Display", serif;;
-}
