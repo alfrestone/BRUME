@@ -100,9 +100,9 @@ function calculerTotal() {
 function setSelected(btn, isSelected) {
     if (isSelected) {
         btn.classList.remove('border-[#DFD5C8]');
-        btn.classList.add('border-[#394B32]', 'bg-[#E9EEDC]');
+        btn.classList.add('border-[#394B32]', 'bg-[#E9EEDC]' , "check_mark");
     } else {
-        btn.classList.remove('border-[#394B32]', 'bg-[#E9EEDC]');
+        btn.classList.remove('border-[#394B32]', 'bg-[#E9EEDC]' , "check_mark");
         btn.classList.add('border-[#DFD5C8]');
     }
 }
@@ -116,77 +116,6 @@ function chooseOneOption(group, key) {
     }
 
 }
-
-// function choisirEspresso() {
-//     selectedConfig.base = config.base.espresso;
-//     calculerTotal();
-
-//     setSelected(document.getElementById("btn-espresso"), true);
-//     setSelected(document.getElementById("btn-filtre"), false);
-// }
-
-// function choisirFiltre() {
-//     selectedConfig.base = config.base.filtre;
-//     calculerTotal();
-
-//     setSelected(document.getElementById("btn-filtre"), true);
-//     setSelected(document.getElementById("btn-espresso"), false);
-// }
-
-// function choisirS() {
-//     selectedConfig.taille = config.taille.s;
-//     calculerTotal();
-
-//     setSelected(document.getElementById("btn-s"), true);
-//     setSelected(document.getElementById("btn-m"), false);
-//     setSelected(document.getElementById("btn-l"), false);
-// }
-
-// function choisirM() {
-//     selectedConfig.taille = config.taille.m;
-//     calculerTotal();
-
-//     setSelected(document.getElementById("btn-m"), true);
-//     setSelected(document.getElementById("btn-s"), false);
-//     setSelected(document.getElementById("btn-l"), false);
-// }
-
-// function choisirL() {
-//     selectedConfig.taille = config.taille.l;
-//     calculerTotal();
-
-//     setSelected(document.getElementById("btn-l"), true);
-//     setSelected(document.getElementById("btn-s"), false);
-//     setSelected(document.getElementById("btn-m"), false);
-// }
-
-// function choisirVache() {
-//     selectedConfig.lait = config.lait.vache;
-//     calculerTotal();
-
-//     setSelected(document.getElementById("btn-vache"), true);
-//     setSelected(document.getElementById("btn-avoine"), false);
-//     setSelected(document.getElementById("btn-amande"), false);
-// }
-
-// function choisirAvoine() {
-//     selectedConfig.lait = config.lait.avoine;
-//     calculerTotal();
-
-//     setSelected(document.getElementById("btn-avoine"), true);
-//     setSelected(document.getElementById("btn-vache"), false);
-//     setSelected(document.getElementById("btn-amande"), false);
-// }
-
-// function choisirAmande() {
-//     selectedConfig.lait = config.lait.amande;
-//     calculerTotal();
-
-//     setSelected(document.getElementById("btn-amande"), true);
-//     setSelected(document.getElementById("btn-vache"), false);
-//     setSelected(document.getElementById("btn-avoine"), false);
-// }
-
 
 function chooseSupplement(key) {
     if (selectedConfig[key] === null) {
