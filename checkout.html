@@ -1,136 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/checkout.css">
     <script src="js/app2.js" defer></script>
     <title>BRUME - Checkout Page</title>
 </head>
+
 <body>
+
     <body>
-    <header>
-        <p class="bg-[#394B32] text-center text-white p-2 font-light font-dm-sans">Du grain à votre
-            tasse. Un café qui vous ressemble.</p>
+        <header>
+            <p class="bg-[#394B32] text-center text-white p-2 font-light font-dm-sans">Du grain à votre
+                tasse. Un café qui vous ressemble.</p>
 
-        <div id="main-header-div" class="flex justify-between lg:justify-around m-2">
-            <span class="flex justify-start items-center">
-                <img width="30" height="30" src="https://img.icons8.com/ios/50/cafe.png" alt="cafe" />
-                <span id="tester" class="text-[#30291F] font-meduim text-4xl font-playfair m-2">BRUME</span>
-            </span>
-
-            <nav class="flex">
-                <ul id="phone_menu" class="hidden lg:flex justify-around items-center">
-                    <li class="m-4"><a href="#" class="font-semibold text-[#394B32]">L'atelier café</a></li>
-                    <li class="m-4"><a href="#">Notre savoir-faire</a></li>
-                    <li class="m-4"><a href="#">Besoin d'aide ?</a></li>
-                </ul>
-                <span id="add-to-cart-elements" class="flex self-start mt-4">
-                    <img width="30" height="30" src="https://img.icons8.com/windows/32/shopping-bag.png"
-                        alt="shopping-bag" class="self-start" />
-                    <p class="inline-block ml-2 text-[#30291F] self-center">0</p>
-                    <img onclick="drop_menu()" width="30" height="30"
-                        src="https://img.icons8.com/ios-filled/50/menu--v3.png" alt="menu--v3" class="mx-3 lg:hidden" />
+            <div id="main-header-div" class="flex justify-between lg:justify-around m-2">
+                <span class="flex justify-start items-center">
+                    <img width="30" height="30" src="https://img.icons8.com/ios/50/cafe.png" alt="cafe" />
+                    <span id="tester" class="text-[#30291F] font-meduim text-4xl font-playfair m-2">BRUME</span>
                 </span>
-            </nav>
-        </div>
-    </header>
 
-     <main class="grid grid-cols-1 max-w-2xl mx-auto p-6 gap-10 mt-2 md:max-w-4xl lg:grid-cols-2 lg:max-w-7xl">
-
-        <section id="panier">
-            <h1 id="panier-titre" class="text-3xl text-[#30291F] mb-6">Votre panier</h1>
-
-            <button id="btn-quick-add" type="button">
-                Ajouter un autre produit
-            </button>
-
-            <div id="lignes-panier">
-                <!-- Here js gonna fill stuff autmatically-->
+                <nav class="flex">
+                    <ul id="phone_menu" class="hidden lg:flex justify-around items-center">
+                        <li class="m-4"><a href="#" class="font-semibold text-[#394B32]">L'atelier café</a></li>
+                        <li class="m-4"><a href="#">Notre savoir-faire</a></li>
+                        <li class="m-4"><a href="#">Besoin d'aide ?</a></li>
+                    </ul>
+                    <span id="add-to-cart-elements" class="flex self-start mt-4">
+                        <img width="30" height="30" src="https://img.icons8.com/windows/32/shopping-bag.png"
+                            alt="shopping-bag" class="self-start" />
+                        <p class="inline-block ml-2 text-[#30291F] self-center">0</p>
+                        <img onclick="drop_menu()" width="30" height="30"
+                            src="https://img.icons8.com/ios-filled/50/menu--v3.png" alt="menu--v3"
+                            class="mx-3 lg:hidden" />
+                    </span>
+                </nav>
             </div>
+        </header>
 
-            <div>
-                <span>Total</span>
-                <span id="panier-total"></span>
-            </div>
-        </section>
+        <main class="grid grid-cols-1 max-w-2xl mx-auto p-6 gap-10 mt-2 md:max-w-4xl lg:grid-cols-2 lg:max-w-7xl">
 
-
-        <section id="paiement">
-            <h1 id="paiement-title">Informations de paiement</h1>
-
-            <form id="checkout-form" novalidate>
-
-                <div>
-                    <label for="nom">Nom</label>
-                    <input id="nom" name="nom" type="text">
-                    <p id="nom-error" hidden></p>
+            <section id="panier">
+                <h1 id="panier-titre" class="text-3xl text-[#30291F] mb-6">Votre panier</h1>
+                <div class="grid grid-cols-[2fr_1fr_1fr_1fr] gap-4 border-b border-[#DFD5C8] pb-2 mb-4">
+                    <span class="text-sm font-semibold text-[#796A59]">Produit</span>
+                    <span class="text-sm font-semibold text-[#796A59]">Quantité</span>
+                    <span class="text-sm font-semibold text-[#796A59]">Prix total</span>
+                    <span class="text-sm font-semibold text-[#796A59] text-right">Retirer</span>
                 </div>
 
-                <div>
-                    <label for="prenom">Prénom</label>
-                    <input id="prenom" name="prenom" type="text">
-                    <p id="prenom-error" hidden></p>
-                </div>
-
-                <div>
-                    <label for="adresse">Adresse de livraison</label>
-                    <input id="adresse" name="adresse" type="text">
-                    <p id="adresse-error" hidden></p>
-                </div>
-
-                <div>
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="email">
-                    <p id="email-error" hidden></p>
-                </div>
-
-                <div>
-                    <label for="carte-numero">Numéro de carte</label>
-                    <input id="carte-numero" name="carte-numero" type="text" inputmode="numeric">
-                    <p id="carte-numero-error" hidden></p>
-                </div>
-
-                <div>
-                    <label for="carte-expiration">Date d'expiration</label>
-                    <input id="carte-expiration" name="carte-expiration" type="text" placeholder="MM/AA">
-                    <p id="carte-expiration-error" hidden></p>
-                </div>
-
-                <div>
-                    <label for="cvv">CVV</label>
-                    <input id="cvv" name="cvv" type="text" inputmode="numeric">
-                    <p id="cvv-error" hidden></p>
-                </div>
-
-                <button id="btn-payer" type="submit">
-                    Payer ma commande
+                <button id="btn-quick-add"
+                    class="flex items-center text-white font-medium mb-6 mt-3 py-4 px-6 bg-[#394B32] hover:bg-[#2B3826] text-base rounded-xl transition duration-200 shadow cursor-pointer outline-none" type="button">
+                    Ajouter un autre produit
                 </button>
 
-            </form>
-        </section>
+                <div id="lignes-panier">
+                    <!-- Here js gonna fill stuff autmatically-->
+                </div>
 
-    </main>
+                <div>
+                    <span>Total</span>
+                    <span id="panier-total"></span>
+                </div>
+            </section>
 
 
-    <div id="quick-add-panel" hidden>
-        <div>
+            <section id="paiement" class="bg-white p-6 rounded-2xl border border-[#DFD5C8] shadow-sm">
+                <h1 id="paiement-title" class="text-2xl text-[#30291F] mb-6 pb-3 border-b border-[#DFD5C8]">Informations de paiement</h1>
+
+                <form id="checkout-form" class="grid grid-cols-2 gap-4">
+
+                    <div class="flex flex-col">
+                        <label for="nom" class="text-xs uppercase tracking-wider text-[#796A59] mb-1.5">Nom</label>
+                        <input id="nom" name="nom" type="text" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#DFD5C8] rounded-xl text-[#30291F] text-sm outline-none focus:bg-white focus:border-[#394B32] focus:ring-1 focus:ring-[#394B32] transition-all">
+                        <p id="nom-error" hidden></p>
+                    </div>
+
+                    <div class="flex flex-col" >
+                        <label for="prenom" class="text-xs uppercase tracking-wider text-[#796A59] mb-1.5">Prénom</label>
+                        <input id="prenom" name="prenom" type="text" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#DFD5C8] rounded-xl text-[#30291F] text-sm outline-none focus:bg-white focus:border-[#394B32] focus:ring-1 focus:ring-[#394B32] transition-all">
+                        <p id="prenom-error" hidden></p>
+                    </div>
+
+                    <div class="flex flex-col col-span-2">
+                        <label for="adresse" class="text-xs uppercase tracking-wider text-[#796A59] mb-1.5">Adresse de livraison</label>
+                        <input id="adresse" name="adresse" type="text" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#DFD5C8] rounded-xl text-[#30291F] text-sm outline-none focus:bg-white focus:border-[#394B32] focus:ring-1 focus:ring-[#394B32] transition-all">
+                        <p id="adresse-error" hidden></p>
+                    </div>
+
+                    <div class="flex flex-col col-span-2">
+                        <label for="email" class="text-xs uppercase tracking-wider text-[#796A59] mb-1.5">Email</label>
+                        <input id="email" name="email" type="email" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#DFD5C8] rounded-xl text-[#30291F] text-sm outline-none focus:bg-white focus:border-[#394B32] focus:ring-1 focus:ring-[#394B32] transition-all">
+                        <p id="email-error" hidden></p>
+                    </div>
+
+                    <div class="flex flex-col col-span-2">
+                        <label for="carte-numero" class="text-xs uppercase tracking-wider text-[#796A59] mb-1.5">Numéro de carte</label>
+                        <input id="carte-numero" name="carte-numero" type="text" inputmode="numeric" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#DFD5C8] rounded-xl text-[#30291F] text-sm outline-none focus:bg-white focus:border-[#394B32] focus:ring-1 focus:ring-[#394B32] transition-all">
+                        <p id="carte-numero-error" hidden></p>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="carte-expiration" class="text-xs uppercase tracking-wider text-[#796A59] mb-1.5">Date d'expiration</label>
+                        <input id="carte-expiration" name="carte-expiration" type="text" placeholder="MM/AA" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#DFD5C8] rounded-xl text-[#30291F] text-sm outline-none focus:bg-white focus:border-[#394B32] focus:ring-1 focus:ring-[#394B32] transition-all">
+                        <p id="carte-expiration-error" hidden></p>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="cvv" class="text-xs uppercase tracking-wider text-[#796A59] mb-1.5">CVV</label>
+                        <input id="cvv" name="cvv" type="text" inputmode="numeric" class="w-full px-4 py-3 bg-[#FAF8F5] border border-[#DFD5C8] rounded-xl text-[#30291F] text-sm outline-none focus:bg-white focus:border-[#394B32] focus:ring-1 focus:ring-[#394B32] transition-all">
+                        <p id="cvv-error" hidden></p>
+                    </div>
+
+                    <button id="btn-payer" type="submit" class="col-span-2 w-full mt-3 py-4 bg-[#394B32] hover:bg-[#2B3826] text-white font-medium text-base rounded-xl transition duration-200 shadow cursor-pointer">
+                        Payer ma commande
+                    </button>
+
+                </form>
+            </section>
+
+        </main>
+
+
+        <div id="quick-add-panel" hidden>
             <div>
-                <h2>Ajouter un produit</h2>
-                <button id="btn-fermer-quick-add" type="button" aria-label="Fermer">✕</button>
-            </div>
+                <div>
+                    <h2>Ajouter un produit</h2>
+                    <button id="btn-fermer-quick-add" type="button" aria-label="Fermer">✕</button>
+                </div>
 
-            <input id="quick-add-search" type="text" placeholder="Rechercher...">
+                <input id="quick-add-search" type="text" placeholder="Rechercher...">
 
-            <div id="quick-add-resultats">
-                
+                <div id="quick-add-resultats">
+
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <footer>
-        <span>BRUME — Le goût de votre rythme.</span>
-    </footer>
-</body>
+        <footer class="text-center">
+            <span>BRUME — Le goût de votre rythme.</span>
+        </footer>
+    </body>
+
 </html>
