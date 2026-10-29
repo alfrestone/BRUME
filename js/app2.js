@@ -48,33 +48,78 @@ const coffeeProducts = [
 
 // 2. Le tableau des produits dans le panier par défaut (avec un accessoire)
 let coffeeCart = [
-    { id: "c2", name: "Cappuccino Mousseux", price: 4.00, quantity: 2, image: "cappuccino.jpg" },
-    { id: "c3", name: "Licatte Caramel", price: 4.50, quantity: 1, image: "latte.jpg" },
-    { id: "c8", name: "Mug Isotherme Noir", price: 15.00, quantity: 1, image: "mug.jpg" }
+    { id: "c2", name: "Cappuccino Mousseux", price: 4.00, quantity: 2, image: "/img/cappuccino.jpg" },
+    { id: "c3", name: "Licatte Caramel", price: 4.50, quantity: 1, image: "/img/latte.jpg" },
+    { id: "c8", name: "Mug Isotherme Noir", price: 15.00, quantity: 1, image: "/img/mug.jpg" }
 ];
 
 
 //Default coffee cart show in the dom
 function default_values_cart() {
+    let total = 0;
     let parent_element = document.getElementById('lignes-panier');
     parent_element.innerHTML = '';
     for (let key in coffeeCart) {
         let items_holder = coffeeCart[key];
 
+        let image = document.createElement('img');
+        image.src = items_holder.image;
+        image.alt = items_holder.name;
+        image.classList = 'h-42 w-42 object-cover';
+
         let name = document.createElement('span');
         name.textContent = items_holder.name;
-        
+
+        let product = document.createElement('div');
+        product.append(image, name);
         let quantity = document.createElement('span');
         quantity.textContent = items_holder.quantity;
 
         let price = document.createElement('span');
-        price.textContent = items_holder.price;
+        price.textContent = (items_holder.price * items_holder.quantity).toFixed(2) + " DH";
+        total += items_holder.price * items_holder.quantity;
+        document.getElementById('panier-total').textContent = `${total.toFixed(2)} DH`;
 
-        let retier = document.createElement('span');
-        retier.textContent = 'Retier';
+        let choix = document.createElement('div');
+        let add_button = document.createElement('button');
+        add_button.type = 'button';
+        add_button.textContent = '+'
+        add_button.classList = 'w-8 h-8 bg-[#00AB66] rounded-full mx-2 text-white text-lg transition hover:bg-[#009157] duration-200 shadow cursor-pointer';
 
-        parent_element.append(name,quantity,price, retier);
+        let minus_button = document.createElement('button');
+        minus_button.type = 'button';
+        minus_button.textContent = '-'
+        minus_button.classList = "w-8 h-8 bg-[#FF2C2C] rounded-full mx-2 text-white text-lg transition hover:bg-[#E01B1B] duration-200 shadow cursor-pointer";
+
+        choix.append(add_button, minus_button);
+
+        parent_element.append(product, quantity, price, choix);
+
+        add_button.addEventListener('click', function () {
+            if (items_holder.quantity < 7) {
+                items_holder.quantity++;
+                default_values_cart();
+            }
+        })
+
+        minus_button.addEventListener('click', function () {
+            if (items_holder.quantity > 1) {
+                items_holder.quantity--;
+                default_values_cart();
+            }
+        })
     }
 }
 
 default_values_cart();
+
+
+//A ready to use script for the imported component modal (hyperui)
+const modalEl = document.querySelector('dialog')
+const openButtonEl = document.querySelector('[data-modal-open]')
+
+openButtonEl.addEventListener('click', () => modalEl.showModal())
+
+document.querySelectorAll('[data-modal-close]').forEach((buttonEl) => {
+    buttonEl.addEventListener('click', () => modalEl.close())
+})
