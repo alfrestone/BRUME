@@ -496,6 +496,9 @@
   .text-pretty {
     text-wrap: pretty;
   }
+  .whitespace-pre-line {
+    white-space: pre-line;
+  }
   .text-\[\#394B32\] {
     color: #394B32;
   }

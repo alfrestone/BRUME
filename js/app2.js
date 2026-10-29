@@ -113,6 +113,28 @@ function default_values_cart() {
 
 default_values_cart();
 
+//searching for any partial match
+function searchproduct() {
+    let products_names = [];
+    for (let key in coffeeProducts) {
+        products_names.push(coffeeProducts[key].name.toLowerCase());
+    }
+    let input_field = document.getElementById('search_db');
+    
+    const does_value_exist = products_names.filter(function (names) {
+        return names.includes(input_field.value.toLowerCase());
+    })
+    let search_result = document.createElement('div');
+    search_result.innerHTML = `<div> ${does_value_exist} </div>`;
+    search_result.classList.add("whitespace-pre-line");
+
+    let parent_search = document.getElementById('parent_search_element');
+    parent_search.innerHTML = "";
+    parent_search.append(search_result);
+}
+
+//calling the function when an input event happens
+document.getElementById('search_db').addEventListener('input' ,searchproduct)
 
 //A ready to use script for the imported component modal (hyperui)
 const modalEl = document.querySelector('dialog')
