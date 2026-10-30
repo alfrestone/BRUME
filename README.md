@@ -15,7 +15,7 @@ This project focuses on:
 - Vanilla JavaScript (ES6)
 
 ## 📄 project Structure
-.
+project/
 ├── assets/
 │   └── img/
 │       └── main_pic.png
