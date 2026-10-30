@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style2.css">
+    <script src="/js/app.js" defer></script>
+    <style type="text/tailwindcss">
+        @theme {
+        --font-dm-sans: "DM Sans", sans-serif;
+        --font-playfair:"Playfair Display", serif;
+}
+#lignes-recu p {
+    @apply text-sm text-[#796A59] py-3 border-b border-[#DFD5C8];
+}
+    body {
+        font-family: var(--font-dm-sans);
+    }
+    </style>
+    <title>BRUME Café</title>
+</head>
+
+<body>
+    <header>
+        <p class="bg-[#394B32] text-center text-white p-2 font-light font-dm-sans">Du grain à votre
+            tasse. Un café qui vous ressemble.</p>
+
+        <div id="main-header-div" class="flex justify-between lg:justify-around m-2">
+            <span class="flex justify-start items-center">
+                <img width="30" height="30" src="https://img.icons8.com/ios/50/cafe.png" alt="cafe" />
+                <span id="tester" class="text-[#30291F] font-meduim text-4xl font-playfair m-2">BRUME</span>
+            </span>
+
+            <nav class="flex">
+                <ul id="phone_menu" class="hidden lg:flex justify-around items-center">
+                    <li class="m-4"><a href="#" class="font-semibold text-[#394B32]">L'atelier café</a></li>
+                    <li class="m-4"><a href="#">Notre savoir-faire</a></li>
+                    <li class="m-4"><a href="#">Besoin d'aide ?</a></li>
+                </ul>
+                <span id="add-to-cart-elements" class="flex self-start mt-4">
+                    <img width="30" height="30" src="https://img.icons8.com/windows/32/shopping-bag.png"
+                        alt="shopping-bag" class="self-start" />
+                    <p class="inline-block ml-2 text-[#30291F] self-center">0</p>
+                    <img onclick="drop_menu()" width="30" height="30"
+                        src="https://img.icons8.com/ios-filled/50/menu--v3.png" alt="menu--v3" class="mx-3 lg:hidden" />
+                </span>
+            </nav>
+        </div>
+    </header>
+
+    <main
+        class="grid grid-cols-1 max-w-2xl mx-auto p-6 gap-10 mt-2 sm:grid-cols-1 md:max-w-4xl lg:grid-cols-2 lg:max-w-7xl">
+
+        <section>
+            <div class="relative p-0">
+                <img class="w-auto h-auto sm:mx-auto" src="/assets/img/main_pic.png" alt="coffe_cup_product">
+                <span
+                    class="absolute text-xs top-5 left-3 bg-white px-3 py-2 rounded-2xl md:top-10 md:left-15">LE
+                    CAFÉ, À VOTRE
+                    FAÇON</span>
+            </div>
+
+        </section>
+
+        <section id="configurateur">
+            <div class="mb-4">
+                <span class="text-[#394B32] font-medium text-xs">01 Personnaliser</span>
+                <span class="text-[#796A59] font-normal text-xs">—</span>
+                <span class="text-[#796A59] font-normal text-xs">02 Récapitulatif</span>
+            </div>
+
+
+            <div class="my-4">
+                <p class="text-xs font-semibold text-[#394B32] my-2">VOTRE COFFEE SHOP, AUTREMENT.</p>
+                <h1 class="text-5xl text-[#30291F] my-2 font-playfair">Votre pause, votre signature.</h1>
+                <p class="text-sm font-semibold text-[#394B32] mb-2 mt-4 font-dm-sans">Quelques envies, un café unique. <br>À vous de
+                    composer la suite.</p>
+            </div>
+
+
+            <div>
+                <div class="flex justify-between items-center gap-5 my-3">
+                    <h3 class="text-[#30291F] font-semibold text-lg">01 La base</h3>
+                    <span class="text-sm font-normal text-[#796A59]">Choix unique</span>
+                </div>
+
+                <div class="flex justify-between gap-5 my-3">
+                    <button id="btn-espresso"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="espresso-name"></span>
+                        <span id="espresso-price" class="text-[#796A59]"></span>
+                    </button>
+
+                    <button id="btn-filtre"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="filtre-name"></span>
+                        <span id="filtre-price" class="text-[#796A59]"></span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="flex justify-between items-center gap-5 my-3">
+                    <h3 class="text-[#30291F] font-semibold text-lg">02 La taille</h3>
+                    <span class="text-sm font-normal text-[#796A59]">Choix unique</span>
+                </div>
+
+                <div class="flex justify-between gap-5 my-3">
+                    <button id="btn-s"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="s-name"></span>
+                        <span id="s-price" class="text-[#796A59]"></span>
+                    </button>
+
+                    <button id="btn-m"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="m-name"></span>
+                        <span id="m-price" class="text-[#796A59]"></span>
+                    </button>
+
+                    <button id="btn-l"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="l-name"></span>
+                        <span id="l-price" class="text-[#796A59]"></span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="flex justify-between items-center gap-5  my-3">
+                    <h3 class="text-[#30291F] font-semibold text-lg">03 Le lait</h3>
+                    <span class="text-sm font-normal text-[#796A59]">Choix unique</span>
+                </div>
+
+                <div class="flex justify-between gap-5  my-3">
+                    <button id="btn-vache"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="vache-name"></span>
+                        <span id="vache-price" class="text-[#796A59]"></span>
+                    </button>
+
+                    <button id="btn-avoine"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="avoine-name"></span>
+                        <span id="avoine-price" class="text-[#796A59]"></span>
+                    </button>
+
+                    <button id="btn-amande"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="amande-name"></span>
+                        <span id="amande-price" class="text-[#796A59]"></span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="flex justify-between items-center gap-5  my-3">
+                    <h3 class="text-[#30291F] font-semibold text-lg">04 La touche en plus</h3>
+                    <span class="text-sm font-normal text-[#796A59]">Plusieurs choix</span>
+                </div>
+
+                <div class="flex justify-between gap-5  my-3">
+                    <button id="btn-caramel"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="caramel-name"></span>
+                        <span id="caramel-price" class="text-[#796A59]"></span>
+                    </button>
+
+                    <button id="btn-vanille"
+                        class="flex flex-1 flex-col items-start border-2 border-[#DFD5C8] basis-auto rounded-lg px-4 py-2">
+                        <span id="vanille-name"></span>
+                        <span id="vanille-price" class="text-[#796A59]"></span>
+                    </button>
+                </div>
+            </div>
+
+
+            <p class="text-sm font-normal text-[#796A59]">Le prix évolue selon vos choix. Vous pourrez les modifier au
+                récapitulatif.</p>
+
+        </section>
+
+        <section id="recu" hidden>
+            <div class="mb-4">
+                <span class="text-[#796A59] font-normal text-xs">01 Personnaliser</span>
+                <span class="text-[#796A59] font-normal text-xs">—</span>
+                <span class="text-[#394B32] font-medium text-xs">02 Récapitulatif</span>
+            </div>
+
+            <h1 class="text-4xl text-[#30291F] my-4">Votre récapitulatif</h1>
+
+            <div class="bg-white rounded-xl p-6 max-w-md shadow-sm">
+
+                <span class="inline-block bg-[#E9EEDC] text-[#394B32] text-xs font-medium px-3 py-1 rounded-full mb-4">
+                    ✓ Sélection ajoutée
+                </span>
+
+                <p class="text-xs text-[#796A59] mb-4">Une création personnalisée · Quantité : 1</p>
+
+                <div id="lignes-recu" class="border-t border-[#DFD5C8]"></div>
+
+                <div class="flex justify-between items-center pt-4">
+                    <span class="font-semibold text-[#30291F]">Total</span>
+                    <span id="recu-total" class="font-semibold text-xl text-[#30291F]"></span>
+                </div>
+
+                <p class="text-xs text-[#796A59] mt-1 mb-4">Prix de cette sélection · aucun paiement effectué.</p>
+
+                <button id="btn-modifier" type="button"
+                    class="w-full bg-[#394B32] text-white rounded-xl py-3 flex items-center justify-center gap-2">
+                    Créer un autre café →
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <section class="w-full bg-white p-6  lg:max-w-7xl lg:mx-auto">
+
+            <div class="flex flex-col items-center lg:flex-row lg:justify-between">
+
+                <div class="flex flex-col items-center my-4 lg:items-start">
+                    <p class="text-[#796A59] text-sm py-2">Votre création · Café sur mesure</p>
+                    <p class="text-[#796A59] text-sm ml-5 py-2 lg:hidden">Total</p>
+                    <p id="total-price" class="text-[#30291F] text-2xl mx-5 py-2">0.00 DH</p>
+
+                </div>
+                <button id="btn-valider"
+                    class="flex items-center self-center bg-[#394B32] py-4 px-4 mx-5 rounded-xl text-white">
+                    Ajouter au panier →
+                </button>
+            </div>
+
+            <div class="flex justify-around items-center">
+                <span class="text-[#796A59] text-sm mb-6 mt-3">BRUME — Le goût de votre rythme.</span>
+                <span class="text-[#796A59] text-sm hidden lg:block">Une création unique, la vôtre.</span>
+            </div>
+        </section>
+    </footer>
+</body>
+
+</html>

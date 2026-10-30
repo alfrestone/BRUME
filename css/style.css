@@ -8,3 +8,6 @@ body {
     background-color: #FAF7F0;
 }
 
+.check_mark::before {
+    content: "✓";
+}
