@@ -34,16 +34,16 @@ function drop_menu() {
 
 // 1. Le tableau global (Catalogue complet incluant les accessoires)
 const coffeeProducts = [
-    { id: "c1", name: "Espresso Intense", category: "Base", price: 2.50, image: "espresso.jpg" },
-    { id: "c2", name: "Cappuccino Mousseux", category: "Classique", price: 4.00, image: "cappuccino.jpg" },
-    { id: "c3", name: "Latte Caramel", category: "Gourmand", price: 4.50, image: "latte.jpg" },
-    { id: "c4", name: "Flat White", category: "Classique", price: 3.80, image: "flatwhite.jpg" },
-    { id: "c5", name: "Iced Matcha Latte", category: "Froid", price: 5.00, image: "matcha.jpg" },
-    { id: "c6", name: "Cold Brew", category: "Froid", price: 4.20, image: "coldbrew.jpg" },
-    { id: "c7", name: "Cookie Pépites", category: "Snack", price: 2.00, image: "cookie.jpg" },
-    { id: "c8", name: "Mug Isotherme Noir", category: "Accessoire", price: 15.00, image: "mug.jpg" },
-    { id: "c9", name: "Filtres Papier V60 (x100)", category: "Accessoire", price: 6.50, image: "filters.jpg" },
-    { id: "c10", name: "Tote Bag 'Coffee Lover'", category: "Accessoire", price: 12.00, image: "totebag.jpg" }
+    { id: "c1", name: "Espresso Intense", category: "Base", price: 2.50, image: "/img/espresso.jpg" },
+    { id: "c2", name: "Cappuccino Mousseux", category: "Classique", price: 4.00, image: "/img/cappuccino.jpg" },
+    { id: "c3", name: "Latte Caramel", category: "Gourmand", price: 4.50, image: "/img/latte.jpg" },
+    { id: "c4", name: "Flat White", category: "Classique", price: 3.80, image: "/img/flatwhite.jpg" },
+    { id: "c5", name: "Iced Matcha Latte", category: "Froid", price: 5.00, image: "/img/matcha.jpg" },
+    { id: "c6", name: "Cold Brew", category: "Froid", price: 4.20, image: "/img/coldbrew.jpg" },
+    { id: "c7", name: "Cookie Pépites", category: "Snack", price: 2.00, image: "/img/cookie.jpg" },
+    { id: "c8", name: "Mug Isotherme Noir", category: "Accessoire", price: 15.00, image: "/img/mug.jpg" },
+    { id: "c9", name: "Filtres Papier V60 (x100)", category: "Accessoire", price: 6.50, image: "/img/filters.jpg" },
+    { id: "c10", name: "Tote Bag 'Coffee Lover'", category: "Accessoire", price: 12.00, image: "/img/totebag.jpg" }
 ];
 
 // 2. Le tableau des produits dans le panier par défaut (avec un accessoire)
@@ -93,6 +93,26 @@ function default_values_cart() {
 
         choix.append(add_button, minus_button);
 
+        if (items_holder.can_be_deleted) {
+            let remove_button = document.createElement('button');
+
+            remove_button.type = 'button';
+            remove_button.textContent = 'Supprimer';
+            remove_button.className =
+                'rounded-lg bg-red-500 px-3 py-2 text-sm text-white hover:bg-red-600';
+
+            remove_button.addEventListener('click', function () {
+                coffeeCart = coffeeCart.filter(function (item) {
+                    return item.id !== items_holder.id;
+                });
+
+                default_values_cart();
+                searchproduct();
+            });
+
+            choix.append(remove_button);
+        }
+
         parent_element.append(product, quantity, price, choix);
 
         add_button.addEventListener('click', function () {
@@ -113,28 +133,81 @@ function default_values_cart() {
 
 default_values_cart();
 
+
+let selected_products = "";
 //searching for any partial match
 function searchproduct() {
     let products_names = [];
-    for (let key in coffeeProducts) {
-        products_names.push(coffeeProducts[key].name.toLowerCase());
+
+    for (let product of coffeeProducts) {
+        let already_in_cart = false;
+
+        for (let cart_item of coffeeCart) {
+            if (cart_item.id === product.id) {
+                already_in_cart = true;
+                break;
+            }
+        }
+
+        if (already_in_cart == false) {
+            products_names.push(product.name.toLowerCase());
+        }
     }
+
     let input_field = document.getElementById('search_db');
-    
+
     const does_value_exist = products_names.filter(function (names) {
         return names.includes(input_field.value.toLowerCase());
     })
-    let search_result = document.createElement('div');
-    search_result.innerHTML = `<div> ${does_value_exist} </div>`;
-    search_result.classList.add("whitespace-pre-line");
 
     let parent_search = document.getElementById('parent_search_element');
     parent_search.innerHTML = "";
-    parent_search.append(search_result);
+
+    for (let key of does_value_exist) {
+        let option = document.createElement('button');
+        option.type = 'button';
+        option.textContent = key;
+        option.className = `
+        block w-full
+        bg-[#E1E4E0]
+        rounded-lg border border-[#CCD2CA]
+        bg-white px-4 py-3 my-3
+        text-left text-sm text-[#30291F]
+        transition duration-200
+        hover:bg-[#EDEFEB]
+        hover:border-[#5E6A5A]
+        focus:outline-none focus:ring-2 focus:ring-[#5E6A5A]
+    `;
+
+
+        option.addEventListener('click', function () {
+            selected_products = key;
+
+            // Find the complete product
+            let product = coffeeProducts.find(function (item) {
+                return item.name.toLowerCase() == selected_products;
+            });
+
+            // Add it to the cart
+            coffeeCart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                quantity: 1,
+                can_be_deleted : true
+            });
+
+            // Refresh the page
+            default_values_cart();
+            searchproduct();
+        });
+        parent_search.append(option);
+    }
 }
 
 //calling the function when an input event happens
-document.getElementById('search_db').addEventListener('input' ,searchproduct)
+document.getElementById('search_db').addEventListener('input', searchproduct)
 
 //A ready to use script for the imported component modal (hyperui)
 const modalEl = document.querySelector('dialog')
