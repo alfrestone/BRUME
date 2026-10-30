@@ -195,7 +195,7 @@ function searchproduct() {
                 price: product.price,
                 image: product.image,
                 quantity: 1,
-                can_be_deleted : true
+                can_be_deleted: true
             });
 
             // Refresh the page
@@ -205,6 +205,147 @@ function searchproduct() {
         parent_search.append(option);
     }
 }
+
+
+
+//Testing valid function
+
+function isvalid() {
+
+    //Getting hidden paragraphs element ids to prepare them to show related errors
+    let first_name_error = document.getElementById('nom-error')
+    let last_name_error = document.getElementById('prenom-error')
+    let address_value_error = document.getElementById('adresse-error')
+    let email_value_error = document.getElementById('email-error')
+    let card_number_error = document.getElementById('carte-numero-error')
+    let card_date_error = document.getElementById('carte-expiration-error')
+    let card_cvv_error = document.getElementById('cvv-error')
+
+
+    //Getting the ids of the inputs elements to get data and validate it
+    let first_name = document.getElementById('nom')
+    let last_name = document.getElementById('prenom')
+    let address_value = document.getElementById('adresse')
+    let email_value = document.getElementById('email')
+    let card_number = document.getElementById('carte-numero')
+    let card_date = document.getElementById('carte-expiration')
+    let card_cvv = document.getElementById('cvv')
+
+    //Clearing Values
+    first_name_error.textContent = "";
+    first_name_error.hidden = true;
+
+    last_name_error.textContent = "";
+    last_name_error.hidden = true;
+
+    address_value_error.textContent = "";
+    address_value_error.hidden = true;
+
+    email_value_error.textContent = "";
+    email_value_error.hidden = true;
+
+    card_number_error.textContent = "";
+    card_number_error.hidden = true;
+
+    card_date_error.textContent = "";
+    card_date_error.hidden = true;
+
+    card_cvv_error.textContent = "";
+    card_cvv_error.hidden = true;
+
+    //Regex patterns that are needed for this project
+    const nameRegex = /^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$/u;
+    const addressRegex = /^[\p{L}\p{M}\d\s,،.'’/#-]{8,150}$/u;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const cardRegex = /^\d{13,19}$/;
+    const expirationRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    const cvvRegex = /^\d{3,4}$/;
+
+    let isvalid = true
+    if (first_name.value.trim() === "") {
+        first_name_error.textContent = "La marque est obligatoire."
+        first_name_error.hidden = false;
+        isvalid = false;
+    } else if (nameRegex.test(first_name.value.trim()) == false) {
+        first_name_error.textContent = "Les données saisies ne sont pas dans un format valide."
+        first_name_error.hidden = false;
+        isvalid = false;
+    }
+
+    if (last_name.value.trim() === "") {
+        last_name_error.textContent = "La marque est obligatoire."
+        last_name_error.hidden = false;
+        isvalid = false;
+    } else if (nameRegex.test(last_name.value.trim()) == false) {
+        last_name_error.textContent = "Les données saisies ne sont pas dans un format valide.";
+        last_name_error.hidden = false;
+        isvalid = false;
+    }
+
+    if (address_value.value.trim() === "") {
+        address_value_error.textContent = "La marque est obligatoire."
+        address_value_error.hidden = false;
+        isvalid = false;
+    } else if (addressRegex.test(address_value.value.trim()) == false) {
+        address_value_error.textContent = "Les données saisies ne sont pas dans un format valide."
+        address_value_error.hidden = false;
+        isvalid = false;
+    }
+
+    if (email_value.value.trim() === "") {
+        email_value_error.textContent = "La marque est obligatoire."
+        email_value_error.hidden = false;
+        isvalid = false;
+    } else if (emailRegex.test(email_value.value.trim()) == false) {
+        email_value_error.textContent = "Les données saisies ne sont pas dans un format valide."
+        email_value_error.hidden = false;
+        isvalid = false;
+    }
+
+    if (card_number.value.trim() === "") {
+        card_number_error.textContent = "La marque est obligatoire."
+        card_number_error.hidden = false;
+        isvalid = false;
+    } else if (cardRegex.test(card_number.value.trim()) == false) {
+        card_number_error.textContent = "Les données saisies ne sont pas dans un format valide."
+        card_number_error.hidden = false;
+        isvalid = false;
+    }
+
+    if (card_date.value.trim() === "") {
+        card_date_error.textContent = "La marque est obligatoire."
+        card_date_error.hidden = false;
+        isvalid = false;
+    } else if (expirationRegex.test(card_date.value.trim()) == false) {
+        card_date_error.textContent = "Les données saisies ne sont pas dans un format valide."
+        card_date_error.hidden = false;
+        isvalid = false;
+    }
+
+    if (card_cvv.value.trim() === "") {
+        card_cvv_error.textContent = "La marque est obligatoire."
+        card_cvv_error.hidden = false;
+        isvalid = false;
+    } else if (cvvRegex.test(card_cvv.value.trim()) == false) {
+        card_cvv_error.textContent = "Les données saisies ne sont pas dans un format valide."
+        card_cvv_error.hidden = false;
+        isvalid = false;
+    }
+    return isvalid
+}
+
+
+//The form function
+
+function validate_form() {
+    document.getElementById('checkout-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (isvalid() == true) {
+            alert("Your order has been submitted")
+        }
+    })
+}
+validate_form();
 
 //calling the function when an input event happens
 document.getElementById('search_db').addEventListener('input', searchproduct)
