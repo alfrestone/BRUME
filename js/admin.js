@@ -96,6 +96,8 @@ function validate_steps() {
         let drink_desc_element = document.getElementById('drink-desc').value.toLowerCase();
         let drink_img_element = document.getElementById('drink-img').value.toLowerCase();
 
+        let promo_percent_element = document.getElementById('promo-percent').value;
+        let promo_date_element = document.getElementById('promo-date').value;
 
         if (name_regex.test(drink_name_element) === false || drink_name_element == "") {
             return false;
@@ -109,6 +111,14 @@ function validate_steps() {
         if (desc_regex.test(drink_desc_element) === false || drink_desc_element == "") {
             return false;
         }
+
+        if (promo_percent_element == "" || Number(promo_percent_element) < 0 || Number(promo_percent_element) > 100) {
+            return false;
+        }
+        if (promo_date_element = "") {
+            return false;
+        }
+        
     }
     if (current_step === 2) {
         let origin_element = document.getElementById('coffee-origin').value;
@@ -141,4 +151,14 @@ next_btn.addEventListener('click', function () {
 prev_btn.addEventListener('click', function () {
     current_step--;
     update_wizard_buttons();
+})
+
+let promo_button = document.getElementById('promo-toggle');
+promo_button.addEventListener('click', function() {
+    if (promo_button.checked == true) {
+        document.getElementById('promo-fields').classList.remove('hidden');
+    } 
+    else {
+        document.getElementById('promo-fields').classList.add('hidden');
+    }
 })
