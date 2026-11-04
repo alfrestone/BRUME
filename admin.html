@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Coffee Shop</title>
-    <!-- Tailwind CSS CDN -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/admin.css">
     <script src="js/admin.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
 
 <body>
@@ -102,7 +102,7 @@
                 </div>
             </div>
 
-            <div id="step-2" class="space-y-4 my-6">
+            <div id="step-2" class="space-y-4 my-6 hidden">
 
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Origine des grains :</legend>
@@ -193,13 +193,11 @@
                 </fieldset>
             </div>
 
-                        <!-- ÉTAPE 3 : RÉCAPITULATIF -->
             <div id="step-3" class="space-y-4 my-6 hidden">
                 <h2 class="text-xl font-bold">Récapitulatif de la boisson</h2>
                 <div id="summary-container"></div>
             </div>
 
-            <!-- BOUTONS DE NAVIGATION -->
             <div id="wizard-buttons" class="flex justify-between mt-8 pt-4 border-t border-base-300">
                 <button type="button" id="prev-btn" class="btn btn-outline hidden">Précédent</button>
                 <button type="button" id="next-btn" class="btn btn-neutral ml-auto">Suivant</button>

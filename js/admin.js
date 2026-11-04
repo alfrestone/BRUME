@@ -27,3 +27,118 @@ function drop_menu() {
         is_dropped_menu_visible = false;
     }
 }
+
+//Getting all the wanted elements id to manuplate
+
+// Getting divs
+let step_1 = document.getElementById('step-1');
+let step_2 = document.getElementById('step_2');
+let step_3 = document.getElementById('step-3');
+
+// Getting elements of the steper
+let stepper_element_1 = document.getElementById('step-ind-1');
+let stepper_element_2 = document.getElementById('step-ind-2');
+let stepper_element_3 = document.getElementById('step-ind-3');
+
+// Getting buttons ids
+let prev_btn = document.getElementById('prev-btn');
+let next_btn = document.getElementById('next-btn');
+let submit_btn = document.getElementById('submit-btn');
+
+
+//Declaring a variable to hold the state on the current page
+let current_step = 1;
+
+//A function to update the page visually for depnding on the state of the declared variable
+function update_wizard_buttons() {
+    let i = 1;
+    while (i <= 3) {
+        document.getElementById('step-' + i).classList.add('hidden');
+        i++;
+    }
+    document.getElementById('step-' + current_step).classList.remove('hidden');
+
+    if (current_step === 1) {
+        prev_btn.classList.add('hidden');
+    }
+    else {
+        prev_btn.classList.remove('hidden');
+    }
+    if (current_step >= 2) {
+        document.getElementById('step-ind-2').classList.add('step-primary');
+    } else {
+        document.getElementById('step-ind-2').classList.remove('step-primary');
+    }
+
+    if (current_step === 3) {
+        document.getElementById('step-ind-3').classList.add('step-primary');
+        submit_btn.classList.remove('hidden');
+        next_btn.classList.add('hidden')
+    } else {
+        document.getElementById('step-ind-3').classList.remove('step-primary');
+        next_btn.classList.remove('hidden');
+        submit_btn.classList.add('hidden')
+    }
+}
+update_wizard_buttons();
+
+//Validating inputs before moving to the next step
+function validate_steps() {
+
+    if (current_step === 1) {
+        let name_regex = /^[a-zA-ZÀ-ÿ\s'-]{3,40}$/;
+        let price_regex = /^\d+(\.\d{1,2})?$/;
+        let url_regex = /^https?:\/\/.+\..+/;
+        let desc_regex = /^[\s\S]{10,300}$/;
+
+        let drink_name_element = document.getElementById('drink-name').value.toLowerCase();
+        let drink_price_element = document.getElementById('drink-price').value.toLowerCase();
+        let drink_desc_element = document.getElementById('drink-desc').value.toLowerCase();
+        let drink_img_element = document.getElementById('drink-img').value.toLowerCase();
+
+
+        if (name_regex.test(drink_name_element) === false || drink_name_element == "") {
+            return false;
+        }
+        if (price_regex.test(drink_price_element) === false || Number(price_regex) <= 0) {
+            return false;
+        }
+        if (url_regex.test(drink_img_element) === false || drink_img_element == "") {
+            return false;
+        }
+        if (desc_regex.test(drink_desc_element) === false || drink_desc_element == "") {
+            return false;
+        }
+    }
+    if (current_step === 2) {
+        let origin_element = document.getElementById('coffee-origin').value;
+        let temp_checked = document.querySelector('input[name="temperature"]:checked');
+        let sizes_checked = document.querySelectorAll('input[name="sizes"]:checked');
+
+        if (origin_element === "") {
+            return false;
+        }
+        if (temp_checked === null) {
+            return false;
+        }
+        if (sizes_checked.length === 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+
+next_btn.addEventListener('click', function () {
+    if (validate_steps() === true) {
+        current_step++;
+        update_wizard_buttons();
+    }
+})
+
+prev_btn.addEventListener('click', function () {
+    current_step--;
+    update_wizard_buttons();
+})
