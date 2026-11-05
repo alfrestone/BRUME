@@ -226,6 +226,7 @@ function final_review() {
             <p><strong>Fin de promo :</strong> ${final_step_data_holder.discount_date || "Aucune"}</p>
         </div>
     `;
+    localStorage.setItem("Product_info", JSON.stringify(final_step_data_holder));
 }
 
 next_btn.addEventListener('click', function () {
