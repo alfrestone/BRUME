@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Coffee Shop</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/admin.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <p class="bg-[#394B32] text-center text-white p-2 font-light font-dm-sans">Du grain à votre
+            tasse. Un café qui vous ressemble.</p>
+
+        <div id="main-header-div" class="flex justify-between lg:justify-around m-2">
+            <span class="flex justify-start items-center">
+                <img width="30" height="30" src="https://img.icons8.com/ios/50/cafe.png" alt="cafe" />
+                <span id="tester" class="text-[#30291F] font-meduim text-4xl font-playfair m-2">BRUME</span>
+            </span>
+
+            <nav class="flex">
+                <ul id="phone_menu" class="hidden lg:flex justify-around items-center">
+                    <li class="m-4"><a href="#" class="font-semibold text-[#394B32]">L'atelier café</a></li>
+                    <li class="m-4"><a href="#">Notre savoir-faire</a></li>
+                    <li class="m-4"><a href="#">Besoin d'aide ?</a></li>
+                </ul>
+                <span id="add-to-cart-elements" class="flex self-start mt-4">
+                    <img width="30" height="30" src="https://img.icons8.com/windows/32/shopping-bag.png"
+                        alt="shopping-bag" class="self-start" />
+                    <p class="inline-block ml-2 text-[#30291F] self-center">0</p>
+                    <img onclick="drop_menu()" width="30" height="30"
+                        src="https://img.icons8.com/ios-filled/50/menu--v3.png" alt="menu--v3" class="mx-3 lg:hidden" />
+                </span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto p-8 bg-base-100 shadow-lg rounded-2xl">
+        <ul class="steps w-full">
+            <li id="step-ind-1" class="step step-primary">Informations générales</li>
+            <li id="step-ind-2" class="step">Caractéristiques</li>
+            <li id="step-ind-3" class="step">Récapitulatif</li>
+        </ul>
+
+        <form id="product-form">
+
+            <div id="step-1" class="space-y-4 my-6">
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">Nom de la boisson :</legend>
+                    <input type="text" id="drink-name" class="input w-full" placeholder="ex: Latte Caramel" />
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">Prix de base (DH) :</legend>
+                    <input type="number" id="drink-price" min="0" step="0.01" class="input w-full"
+                        placeholder="ex: 4.50" />
+                </fieldset>
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">Image du produit (URL) :</legend>
+                    <label class="input w-full">
+                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                                stroke="currentColor">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </g>
+                        </svg>
+                        <input class="w-full" id="drink-img" type="url" placeholder="https://" />
+                    </label>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">Description :</legend>
+                    <textarea class="textarea h-24 w-full" id="drink-desc"
+                        placeholder="Décrivez les arômes et la recette de la boisson..."></textarea>
+                </fieldset>
+
+                <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-full border p-4">
+                    <legend class="fieldset-legend">Option promotionnelle</legend>
+                    <label class="label">
+                        <input id="promo-toggle" type="checkbox" class="toggle" />
+                        Produit en promotion
+                    </label>
+                </fieldset>
+
+                <div id="promo-fields" class="grid grid-cols-2 gap-4 p-4 bg-base-200 rounded-lg hidden">
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Pourcentage de réduction (%)</legend>
+                        <input type="number" id="promo-percent" class="input w-full" min="1" max="100"
+                            placeholder="ex: 20" />
+                    </fieldset>
+
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Date de fin de promo</legend>
+                        <input type="date" class="input w-full" id="promo-date" placeholder="Type here" />
+                    </fieldset>
+                </div>
+            </div>
+
+            <div id="step-2" class="space-y-4 my-6 hidden">
+
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">Origine des grains :</legend>
+                    <select id="coffee-origin" class="select w-full">
+                        <option value="" disabled selected>-- Sélectionnez une origine --</option>
+                        <option value="Colombie">Colombie</option>
+                        <option value="Éthiopie">Éthiopie</option>
+                        <option value="Brésil">Brésil</option>
+                        <option value="Mélange">Mélange Maison</option>
+                    </select>
+                </fieldset>
+
+                <fieldset class="fieldset w-full">
+                    <legend class="fieldset-legend">Niveau de torréfaction / Intensité (1 à 10) :</legend>
+                    <input type="range" min="1" max="10" value="5" class="range w-full" id="coffee-intensity" />
+                </fieldset>
+
+                <fieldset class="fieldset bg-base-100 border-base-300 rounded-box border p-4">
+                    <legend class="fieldset-legend">Température :</legend>
+                    <div class="flex gap-6">
+                        <label class="label cursor-pointer gap-2">
+                            <input type="radio" name="temperature" value="Chaud" class="radio" />
+                            <span>Chaud</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="radio" name="temperature" value="Glacé" class="radio" />
+                            <span>Glacé</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset bg-base-100 border-base-300 rounded-box border p-4">
+                    <legend class="fieldset-legend">Tailles disponibles :</legend>
+                    <div class="flex flex-wrap gap-6">
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="sizes" value="Small" class="checkbox" />
+                            <span>Small</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="sizes" value="Medium" class="checkbox" />
+                            <span>Medium</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="sizes" value="Large" class="checkbox" />
+                            <span>Large</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset bg-base-100 border-base-300 rounded-box border p-4">
+                    <legend class="fieldset-legend">Options de lait :</legend>
+                    <div class="flex flex-wrap gap-6">
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="milks" value="Vache" class="checkbox" />
+                            <span>Vache</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="milks" value="Avoine" class="checkbox" />
+                            <span>Avoine</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="milks" value="Soja" class="checkbox" />
+                            <span>Soja</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="milks" value="Amande" class="checkbox" />
+                            <span>Amande</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset bg-base-100 border-base-300 rounded-box border p-4">
+                    <legend class="fieldset-legend">Suppléments :</legend>
+                    <div class="flex flex-wrap gap-6">
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="extras" value="Vanille" class="checkbox" />
+                            <span>Vanille</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="extras" value="Caramel" class="checkbox" />
+                            <span>Caramel</span>
+                        </label>
+                        <label class="label cursor-pointer gap-2">
+                            <input type="checkbox" name="extras" value="Noisette" class="checkbox" />
+                            <span>Noisette</span>
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div id="step-3" class="space-y-4 my-6 hidden">
+                <h2 class="text-xl font-bold">Récapitulatif de la boisson</h2>
+                <div id="summary-container"></div>
+            </div>
+
+            <div id="wizard-buttons" class="flex justify-between mt-8 pt-4 border-t border-base-300">
+                <button type="button" id="prev-btn" class="btn btn-outline hidden">Précédent</button>
+                <button type="button" id="next-btn" class="btn btn-neutral ml-auto">Suivant</button>
+                <button type="submit" id="submit-btn" class="btn btn-primary ml-auto hidden">Confirmer la création</button>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>
