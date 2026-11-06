@@ -97,42 +97,70 @@ function validate_steps() {
         let drink_name_element = document.getElementById('drink-name').value.toLowerCase();
         let drink_price_element = document.getElementById('drink-price').value.toLowerCase();
         let drink_desc_element = document.getElementById('drink-desc').value.toLowerCase();
-        let drink_img_element = document.getElementById('drink-img').value.toLowerCase();
+        let drink_img_element = document.getElementById('drink-img').value;
 
         let promo_percent_element = document.getElementById('promo-percent').value;
         let promo_date_element = document.getElementById('promo-date').value;
 
         if (name_regex.test(drink_name_element) === false || drink_name_element == "") {
+            document.getElementById('drink-name').classList.add('input-error');
             error_message("Nom de boisson invalide (3 lettres minimum) !");
             return false;
         }
+        else {
+            document.getElementById('drink-name').classList.remove('input-error');
+        }
+
         if (price_regex.test(drink_price_element) === false || Number(drink_price_element) <= 0) {
+            document.getElementById('drink-price').classList.add('input-error');
             error_message("Veuillez saisir un prix valide (supérieur à 0 !) !");
             return false;
         }
+        else {
+            document.getElementById('drink-price').classList.remove('input-error');
+        }
         if (url_regex.test(drink_img_element) === false || drink_img_element == "") {
+            document.getElementById('drink-img').parentElement.classList.add('input-error');
             error_message("L'URL de l'image doit commencer par http:// ou https:// !");
             return false;
         }
+        else {
+            document.getElementById('drink-img').parentElement.classList.remove('input-error');
+        }
+
         if (desc_regex.test(drink_desc_element) === false || drink_desc_element == "") {
+            document.getElementById('drink-desc').classList.add('input-error');
             error_message("La description doit contenir au moins 10 caractères !");
             return false;
+        }
+        else {
+            document.getElementById('drink-desc').classList.remove('input-error');
         }
         if (document.getElementById('promo-toggle').checked === true) {
             let current_date = new Date();
             current_date.setHours(0, 0, 0, 0);
             let choosen_date = new Date(promo_date_element);
             if (promo_percent_element == "" || Number(promo_percent_element) < 0 || Number(promo_percent_element) > 90) {
+                document.getElementById('promo-percent').classList.add('input-error');
                 error_message("Veuillez choisir parmi une gamme de remises allant de 0 % à 90 % !");
                 return false;
             }
+            else {
+                document.getElementById('promo-percent').classList.remove('input-error');
+            }
+
             if (promo_date_element === "") {
+                document.getElementById('promo-date').classList.add('input-error');
                 error_message("Veuillez choisir une date valide");
                 return false;
             }
             else if (choosen_date < current_date) {
+                document.getElementById('promo-date').classList.add('input-error');
                 error_message("La date de fin doit être aujourd'hui ou dans le futur !");
                 return false;
+            }
+            else {
+                document.getElementById('promo-date').classList.remove('input-error');
             }
         }
 
@@ -143,16 +171,28 @@ function validate_steps() {
         let sizes_checked = document.querySelectorAll('input[name="sizes"]:checked');
 
         if (origin_element === "") {
+            document.getElementById('coffee-origin').classList.add('input-error');
             error_message("Veuillez choisir un pays d'origine valide!");
             return false;
         }
+        else {
+            document.getElementById('coffee-origin').classList.remove('input-error');
+        }
         if (temp_checked === null) {
+            document.getElementById('temp-box').classList.add('outline','outline-red-500')
             error_message("Veuillez choisir si la boisson sera froide ou chaude!")
             return false;
         }
+        else {
+            document.getElementById('temp-box').classList.remove('outline', 'outline-red-500');
+        }
         if (sizes_checked.length === 0) {
+            document.getElementById('sizes-box').classList.add('outline' ,'outline-red-500');
             error_message("Veuillez choisir au moins une taille de boisson !")
             return false;
+        }
+        else {
+            document.getElementById('sizes-box').classList.remove('outline', 'outline-red-500');
         }
     }
 
@@ -264,11 +304,9 @@ document.getElementById('product-form').addEventListener('submit', function (eve
         icon: "success"
     });
 
-    // 2. Vider tous les champs du formulaire et cacher la promo
     document.getElementById('product-form').reset();
     document.getElementById('promo-fields').classList.add('hidden');
 
-    // 3. Revenir à l'étape 1
     current_step = 1;
     update_wizard_buttons();
 });
